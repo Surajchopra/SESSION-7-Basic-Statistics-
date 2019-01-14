@@ -1,0 +1,73 @@
+﻿Data Analytics 
+SESSION 7: Basic Statistics 
+Assignment 2 
+
+
+1. Write a program to create barplots for all the categorical 
+columns in mtcars. 
+
+Answer:
+
+library(ggplot2)
+
+table1 <- table(mtcars$cyl, mtcars$gear, dnn=c("Cylinders", "Gears"))
+barplot(table1, ylab="Frequency", xlab="Gears", main="Side-By-Side Bar Chart", 
+        col=c("turquoise4", "turquoise2", "turquoise" ), beside=TRUE, width=.3)
+legend("right", title="Cylinders", legend= sort(unique(mtcars$cyl)), 
+       fill =c("turquoise4", "turquoise2", "turquoise" ), box.lty=0)
+legend("right", title="Cylinders", legend= sort(unique(mtcars$cyl)), 
+       fill =c("turquoise4", "turquoise2", "turquoise" ), box.lty=0)
+
+g <- ggplot(mpg, aes(manufacturer)) + geom_bar(aes(fill=class), width = 0.5) +
+  theme(axis.text.x = element_text(angle=65, vjust=0.6)) +
+  labs(title="Histogram on Categorical Variable", subtitle= "Manufacturer across Vehicle Classes")
+g
+
+
+
+2. Create a scatterplot matrix by gear types in mtcars dataset. 
+
+Answer:
+
+library(reshape2)
+library(Matrix)
+scatterplotMatrix(~mpg+disp+drat+wt+gear|cyl,data=mtcars, main="gear type")
+
+library(dplyr) 
+data(mtcars) 
+mtcars$gear <-factor(mtcars$gear,levels=c(3,4,5), labels=c("3gears","4gears","5gears")) 
+mtcars$am <- factor(mtcars$am,levels=c(0,1), labels=c("Automatic","Manual")) 
+mtcars$cyl <- factor(mtcars$cyl,levels=c(4,6,8), labels=c("4cyl","6cyl","8cyl")) 
+g <- ggplot() 
+g <- g + theme_bw() 
+g <- g + geom_point(data=mtcars, aes(x=mpg, y=disp,colour=gear)) +theme(legend.title=element_blank()) 
+g
+
+g <- ggplot() 
+g <- g + theme_bw() 
+g <- g + geom_point(data=mtcars, aes(x=mpg, y=disp,colour=gear),size = 4.0) +theme(legend.title=element_blank())+ guides(colour = guide_legend(override.aes = list(size=4)))+ ggtitle('Mpg')+theme(plot.title = element_text(size=20, face="bold", margin = margin(10, 0, 10, 0))) 
+g
+
+g <- ggplot() 
+g <- g + theme_bw() 
+g <- g + geom_point(data=mtcars, aes(x=mpg, y=disp,colour=gear),size = 4.0) +theme(legend.title=element_blank())+ guides(colour = guide_legend(override.aes = list(size=4)))+ ggtitle('Mpg')+theme(plot.title = element_text(size=20, face="bold", margin = margin(10, 0, 10, 0)))
+g<- g + labs(x = "mpg", y="disp") +theme(text = element_text(size=20))
+g
+
+g <- ggplot() 
+g <- g + theme_bw() 
+g <- g + geom_point(data=mtcars, aes(x=mpg, y=disp,colour=gear),size = 4.0) +theme(legend.title=element_blank())+ guides(colour = guide_legend(override.aes = list(size=4)))+ ggtitle('Mpg')+theme(plot.title = element_text(size=20, face="bold", margin = margin(10, 0, 10, 0)))
+g<- g + labs(x = "mpg", y="disp") +theme(text = element_text(size=20))
+g
+
+g <- ggplot() 
+g <- g + theme_bw() 
+g <- g + geom_point(data=mtcars, aes(x=mpg, y=disp,colour=gear),size = 4.0) +theme(legend.title=element_blank())+ guides(colour = guide_legend(override.aes = list(size=4)))+ ggtitle("Mpg")+theme(plot.title = element_text(size=20, face="bold", margin = margin(10, 0, 10, 0)))
+g<- g + labs(x = "mpg", y="disp") +theme(text = element_text(size=20))+ scale_colour_brewer("Diamond\nclarity")
+g
+
+
+3. Write a program to create a plot density by class variable. 
+
+Answer:
+qplot(mpg, data=mtcars, geom="density", fill=gear, alpha=I(.5), main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density")
